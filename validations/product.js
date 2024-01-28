@@ -6,7 +6,7 @@ const productValidator = Joi.object({
     category: Joi.string().required(),
     image: Joi.string().required(),
     price: Joi.number().required(),
-    rate: Joi.number().required(),
+    count: Joi.number().required(),
 })
 
 module.exports = productValidator

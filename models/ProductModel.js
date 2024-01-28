@@ -9,7 +9,7 @@ const Product = new Schema(
     category: { type: Schema.Types.ObjectId, ref: 'Category' },
     image: { type: String },
     price: { type: Number },
-    rate: { type: Number },
+    count: { type: Number },
     student: { type: Schema.Types.ObjectId, ref: 'Student' }
   },
   { timestamps: true, versionKey: false }

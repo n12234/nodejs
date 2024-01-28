@@ -6,4 +6,4 @@ const createUserValidator = Joi.object({
     username: Joi.string(),
 })
 
-module.exports = createUserValidator
+module.exports = createUserValidator;
