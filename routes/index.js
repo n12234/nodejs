@@ -17,8 +17,8 @@ function routes(app) {
   app.use("/upload", upload);
   app.use("/students", students);
   app.use("/categories", categories);
-  app.use("/users", checkPermissionUser, users);
-  app.use("/products", checkPermissionStudent, products);
+  app.use("/users", users);
+  app.use("/products", products);
   app.use("/api/products", apiProducts);
   app.use("/", site);
 }
