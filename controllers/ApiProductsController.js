@@ -6,8 +6,8 @@ class ApiProductsController {
   async getAllProducts(req, res) {
     try {
       // const products = await Product.find()
-      const products = await Product.find()
-      return res.json({mes: "ok", products});
+      const products = await Product.find().populate("category")
+      return res.json(products);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
