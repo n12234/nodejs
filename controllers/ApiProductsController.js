@@ -52,10 +52,10 @@ class ApiProductsController {
         abortEarly: false,
       });
 
-      if (error) {
-        const errors = error.details.map((err) => err.message);
-        return res.status(400).json({ errors });
-      }
+      // if (error) {
+      //   const errors = error.details.map((err) => err.message);
+      //   return res.status(400).json({ errors });
+      // }
       // Valadiate rep.body
       const product = new Product({ ...req.body, student: null });
 
