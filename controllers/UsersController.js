@@ -130,6 +130,17 @@ class UsersController {
     }
   }
 
+  async updateUser(req, res) {
+    try {
+      const user = await User.updateOne({ _id: req.params.id }, req.body);
+      res
+        .status(200)
+        .json({ message: 'Update User Successful' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
   // [DELETE] /users/:id
   async deleleUser(req, res) {
     try {

@@ -1,12 +1,25 @@
 const Category = require("../models/CategoryModel");
+const Product = require("../models/ProductModel");
 const categoryValidator = require("../validations/category");
 
 class CategoriesController {
+
+  async getListCategory(req, res) {
+    try {
+      const category = await Category.find();
+      res.json(category);
+    } catch (error) {
+      res.status(400).json({
+        error: "Không tìm thấy danh mục",
+      });
+    }
+  }
+
   // [GET] /categories
   async getAllCategories(req, res) {
     try {
-      const categories = await Category.find();
-      res.json(categories);
+      const category = await Product.distinct('category');
+      res.json(category);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

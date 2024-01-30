@@ -3,6 +3,7 @@ const router = express.Router();
 
 const apiProductsController = require('../controllers/ApiProductsController');
 
+router.get('/search', apiProductsController.searchProduct)
 router.get('/:id', apiProductsController.getProductDetail);
 router.get('/', apiProductsController.getAllProducts);
 router.post('/', apiProductsController.createProduct);

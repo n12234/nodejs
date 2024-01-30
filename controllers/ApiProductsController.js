@@ -4,19 +4,38 @@ const productValidator = require("../validations/product");
 class ApiProductsController {
   // [GET] /products
   async getAllProducts(req, res) {
+    const { category } = req.query;
     try {
-      // const products = await Product.find()
-      const products = await Product.find().populate("category")
+      const query = category ? { category: { $in: category.split(',') } } : {};
+    const products = await Product.find(query)
       return res.json(products);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
+  async searchProduct(req, res) {
+    const { keyword } = req.query;
+
+    try {
+      const regex = new RegExp(keyword, "i");
+      const products = await Product.find({
+        $or: [
+          { title: regex },
+          { description: regex },
+        ],
+      });
+
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ message: "Không tồn tại từ khoá này" });
+    }
+  }
+
   // [GET] /products/:id
   async getProductDetail(req, res) {
     try {
-      const product = await Product.findById(req.params.id).populate(
+      const product = await Product.findById({_id: req.params.id}).populate(
         "category"
       );
       res.json(product);
