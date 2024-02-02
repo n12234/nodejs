@@ -14,9 +14,9 @@ class ApiProductsController {
       const products = await Product.find(filter)
         .skip((page - 1) * pageSize)
         .limit(parseInt(pageSize));
-        const totalItems = await Item.countDocuments(filter);
+        const totalProducts = await Product.countDocuments(filter);
 
-        res.json({ totalItems, products });
+        res.json({ totalProducts, products });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
