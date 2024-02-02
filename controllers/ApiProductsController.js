@@ -5,7 +5,10 @@ class ApiProductsController {
   // [GET] /products
   async getAllProducts(req, res) {
     try {
-      const { page, pageSize, category, search } = req.query;
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = parseInt(req.query.pageSize) || 4;
+      const category = req.query.category || '';
+      const search = req.query.search || '';
 
       const filter = {};
       if (category) filter.category = category;
