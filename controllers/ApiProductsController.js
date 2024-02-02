@@ -12,7 +12,7 @@ class ApiProductsController {
 
       const filter = {};
       if (category) filter.category = category;
-      if (search) filter.name = { $regex: new RegExp(search), $options: "i" };
+      if (search) filter.title = { $regex: new RegExp(search), $options: "i" };
 
       const products = await Product.find(filter)
         .skip((page - 1) * pageSize)
