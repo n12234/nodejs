@@ -4,11 +4,19 @@ const productValidator = require("../validations/product");
 class ApiProductsController {
   // [GET] /products
   async getAllProducts(req, res) {
-    const { category } = req.query;
     try {
-      const query = category ? { category: { $in: category.split(',') } } : {};
-    const products = await Product.find(query)
-      return res.json(products);
+      const { page, pageSize, category, search } = req.query;
+
+      const filter = {};
+      if (category) filter.category = category;
+      if (search) filter.name = { $regex: new RegExp(search), $options: "i" };
+
+      const products = await Product.find(filter)
+        .skip((page - 1) * pageSize)
+        .limit(parseInt(pageSize));
+        const totalItems = await Item.countDocuments(filter);
+
+        res.json({ totalItems, products });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -20,10 +28,7 @@ class ApiProductsController {
     try {
       const regex = new RegExp(keyword, "i");
       const products = await Product.find({
-        $or: [
-          { title: regex },
-          { description: regex },
-        ],
+        $or: [{ title: regex }, { description: regex }],
       });
 
       res.json(products);
@@ -35,7 +40,7 @@ class ApiProductsController {
   // [GET] /products/:id
   async getProductDetail(req, res) {
     try {
-      const product = await Product.findById({_id: req.params.id}).populate(
+      const product = await Product.findById({ _id: req.params.id }).populate(
         "category"
       );
       res.json(product);
