@@ -28,6 +28,15 @@ class ProductsController {
     }
   }
 
+  async getProductsByCategory(req, res) {
+    try {
+      const products = await Product.find({ category: req.params.category });
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to retrieve products" });
+    }
+  };
+
   // [POST] /product
   async createProduct(req, res) {
     try {
