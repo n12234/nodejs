@@ -6,7 +6,7 @@ class ProductsController {
   async getAllProducts(req, res) {
     try {
       const page = parseInt(req.query.page) || 1;
-      const pageSize = parseInt(req.query.pageSize) || 4;
+      const pageSize = parseInt(req.query.pageSize) || 6;
       // const products = await Product.find()
       const products = await Product.find({ student: res.locals.id }).populate(
         "category"
