@@ -5,10 +5,14 @@ class ProductsController {
   // [GET] /products
   async getAllProducts(req, res) {
     try {
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = parseInt(req.query.pageSize) || 4;
       // const products = await Product.find()
       const products = await Product.find({ student: res.locals.id }).populate(
         "category"
-      );
+      )
+      .skip((page - 1) * pageSize)
+        .limit(parseInt(pageSize));
       res.json(products);
     } catch (error) {
       res.status(400).json({ error: error.message });
