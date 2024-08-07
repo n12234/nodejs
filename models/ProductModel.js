@@ -7,7 +7,7 @@ const Product = new Schema(
     title: { type: String },
     description: { type: String },
     category: { type: String},
-    image: { type: String },
+    image: { type: [String] },
     price: { type: Number },
     count: { type: Number },
     student: { type: String }
