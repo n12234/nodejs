@@ -11,7 +11,7 @@ const Student = new Schema(
     class: { type: String },
     role: {
       type: String,
-      default: 'student',
+      default: 'user',
     }
   },
   { timestamps: true, versionKey: false }
