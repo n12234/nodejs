@@ -1,8 +1,8 @@
-const Student = require('../models/StudentModel');
-const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-const { registerValidator, loginValidator } = require('../validations/student');
+const Student = require("../models/StudentModel");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+const { registerValidator, loginValidator } = require("../validations/student");
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ class AuthController {
       const studentExist = await Student.findOne({ email });
       if (studentExist) {
         return res.status(400).json({
-          message: 'Email này đã được đăng ký',
+          message: "Email này đã được đăng ký",
         });
       }
 
@@ -35,7 +35,7 @@ class AuthController {
         email,
         password: hashPassword,
       });
-      res.status(200).json({ message: 'Add student successfull' });
+      res.status(200).json({ message: "Add student successfull" });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -57,7 +57,7 @@ class AuthController {
       const student = await Student.findOne({ email });
       if (!student) {
         return res.status(404).json({
-          message: 'Email này chưa đăng ký, bạn có muốn đăng ký không?',
+          message: "Email này chưa đăng ký, bạn có muốn đăng ký không?",
         });
       }
 
@@ -70,12 +70,12 @@ class AuthController {
       }
 
       // Bước 4: Tạo ra token
-      const token = jwt.sign({ id: student._id }, SECRET_CODE, {
-        expiresIn: '30d',
+      const token = jwt.sign({ id: student._id, role: student.role, fullname: student.fullname }, SECRET_CODE, {
+        expiresIn: "30d",
       });
 
       res.json({
-        message: 'Login successfull',
+        message: "Login successfull",
         token,
         student: {
           fullname: student.fullname,
@@ -86,7 +86,6 @@ class AuthController {
       res.status(400).json({ message: error.message });
     }
   }
-
 }
 
 module.exports = new AuthController();
