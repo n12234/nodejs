@@ -9,7 +9,7 @@ const Product = new Schema(
     category: { type: String},
     image: { type: [String]},
     price: { type: Number },
-    count: { type: Number },
+    // count: { type: Number },
     student: { type: String }
   },
   { timestamps: true, versionKey: false }

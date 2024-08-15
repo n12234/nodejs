@@ -14,7 +14,7 @@ const storageClound = new CloudinaryStorage({
   cloudinary,
   allowedFormats: ["jpg", "jpeg", "png"],
   params: {
-    folder: "hoadv_nodejs",
+    folder: "nhatnv",
   },
 });
 
